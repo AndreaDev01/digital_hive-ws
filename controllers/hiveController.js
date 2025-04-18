@@ -3,7 +3,8 @@ const User = require("../models/User");
 
 // get hives
 exports.getHives = async (req, res) => {
-  const hives = await Hive.find();
+  const { userId } = req.params;
+  const hives = await Hive.find({user:userId});
   res.json(hives);
 };
 

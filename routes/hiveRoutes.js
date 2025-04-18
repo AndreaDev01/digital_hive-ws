@@ -13,7 +13,7 @@ const validate = require('../middlewares/validate');
 // Utilizziamo le regole di validazione e il middleware di validazione per garantire che i dati inviati siano validi.
 
 
-router.get('/', HiveController.getHives);
+router.get('/:userId', HiveController.getHives);
 router.post('/', hiveValidationRules, validate, HiveController.createHive);
 
 module.exports = router;
