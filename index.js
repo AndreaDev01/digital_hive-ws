@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const hiveRoutes = require('./routes/hiveRoutes');
 const userRoutes = require('./routes/userRoutes');
+const configParamsRoutes = require('./routes/configParamsRoutes');
 
 
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/hives", hiveRoutes);
 app.use("/users", userRoutes);
+app.use("/config_params", configParamsRoutes);
 
 
 // Start the server
