@@ -39,3 +39,22 @@ exports.createConfigParams = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.updateConfigParams = async (req, res) => {
+    const { configParamId } = req.params;
+    try {
+        const updatedConfig = await configParams.findByIdAndUpdate(
+            configParamId,
+          req.body,
+          { new: true, runValidators: true } // restituisce l'oggetto aggiornato e applica le validazioni
+        );
+    
+        if (!updatedConfig) {
+          return res.status(404).json({ message: 'Configurazione non trovata' });
+        }
+    
+        res.json(updatedConfig);
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+}
