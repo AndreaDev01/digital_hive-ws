@@ -46,12 +46,12 @@ const validate = require('../middlewares/validate');
  *         required: true
  *         schema:
  *           type: string
- *         description: ID dell'utente
+ *         description: User id
  *     responses:
  *       200:
  *         description: OK
  *       404:
- *         description: Hive not found
+ *         description: Hives not found
  */
 router.get('/:userId', HiveController.getHives);
 
@@ -70,9 +70,9 @@ router.get('/:userId', HiveController.getHives);
  *             $ref: '#/components/schemas/Hive'
  *     responses:
  *       201:
- *         description: Arnia creata con successo
+ *         description: Hive created successfully
  *       400:
- *         description: Parametri non validi
+ *         description: Params not valid
  */
 router.post('/', hiveValidationRules, validate, HiveController.createHive);
 

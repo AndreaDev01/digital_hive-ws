@@ -61,6 +61,13 @@ const validate = require('../middlewares/validate');
  *     responses:
  *       200:
  *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   $ref: '#/components/schemas/ConfigParams'
  *       404:
  *         description: Config not found
  */
@@ -70,7 +77,7 @@ router.get('/:userId', ConfigParamsController.getConfigParams);
  * @swagger
  * /configparams:
  *   post:
- *     summary: Crea una configurazione utente
+ *     summary: Create a new config for user
  *     tags: [ConfigParams]
  *     parameters:
  *       - in: path
@@ -87,9 +94,9 @@ router.get('/:userId', ConfigParamsController.getConfigParams);
  *             $ref: '#/components/schemas/ConfigParams'
  *     responses:
  *       201:
- *         description: Configurazione creata con successo
+ *         description: Config created succesfully
  *       400:
- *         description: Parametri non validi
+ *         description: Params not valid
  */
 router.post('/', configParamsValidationRules, validate, ConfigParamsController.createConfigParams);
 
@@ -97,7 +104,7 @@ router.post('/', configParamsValidationRules, validate, ConfigParamsController.c
  * @swagger
  * /configparams/{configParamId}:
  *   put:
- *     summary: Modifica una configurazione utente
+ *     summary: Update config params
  *     tags: [ConfigParams]
  *     requestBody:
  *       required: true
@@ -107,9 +114,9 @@ router.post('/', configParamsValidationRules, validate, ConfigParamsController.c
  *             $ref: '#/components/schemas/ConfigParams'
  *     responses:
  *       201:
- *         description: Configurazione modificata con successo
+ *         description: Config updated successfully
  *       400:
- *         description: Parametri non validi
+ *         description: Paframs not valid
  */
 router.put('/:configParamId', configParamsValidationRules, validate, ConfigParamsController.updateConfigParams);
 

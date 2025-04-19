@@ -20,6 +20,8 @@ exports.createHive = async (req, res) => {
       { new: true }
     );
 
+    // TODO:: controllare i parametri dell'utente e mandare notifica nel caso siano inferiori o superiori ai valori previsti
+
     res.status(201).json(savedHive);
   } catch (err) {
     res.status(500).json({ error: err.message });

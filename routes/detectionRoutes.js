@@ -47,7 +47,7 @@ const detectionValidatorRules = require('../validators/detectionValidator');
  *         required: true
  *         schema:
  *           type: string
- *         description: ID of hive
+ *         description: ID of detection
  *     responses:
  *       200:
  *         description: OK
@@ -61,7 +61,7 @@ const detectionValidatorRules = require('../validators/detectionValidator');
  *                   items:
  *                    $ref: '#/components/schemas/Detection'
  *       404:
- *         description: Hive not found
+ *         description: Detection not found
  */
 router.get('/:hiveId', detectionController.getDetections);
 
@@ -80,9 +80,9 @@ router.get('/:hiveId', detectionController.getDetections);
  *             $ref: '#/components/schemas/Detection'
  *     responses:
  *       201:
- *         description: Rilevazione creata con successo
+ *         description: Detection created successfully
  *       500:
- *         description: Parametri non validi
+ *         description: Params not valid
  */
 router.post('/', detectionValidatorRules, validate, detectionController.createDetection);
 
