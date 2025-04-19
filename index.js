@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 const hiveRoutes = require('./routes/hiveRoutes');
 const userRoutes = require('./routes/userRoutes');
 const configParamsRoutes = require('./routes/configParamsRoutes');
+const detectionsRoutes = require('./routes/detectionRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use("/hives", hiveRoutes);
 app.use("/users", userRoutes);
 app.use("/config_params", configParamsRoutes);
+app.use("/detections", detectionsRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 

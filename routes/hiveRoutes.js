@@ -51,7 +51,7 @@ const validate = require('../middlewares/validate');
  *       200:
  *         description: OK
  *       404:
- *         description: Config not found
+ *         description: Hive not found
  */
 router.get('/:userId', HiveController.getHives);
 
@@ -60,15 +60,8 @@ router.get('/:userId', HiveController.getHives);
  * @swagger
  * /hives:
  *   post:
- *     summary: Crea una nuova arnia
+ *     summary: Create new hive
  *     tags: [Hives]
- *     parameters:
- *       - in: path
- *         name: HiveID
- *         required: true
- *         schema:
- *           type: string
- *         description: ID dell'arnia   
  *     requestBody:
  *       required: true
  *       content:
