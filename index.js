@@ -24,7 +24,7 @@ app.use("/users", userRoutes);
 app.use("/config_params", configParamsRoutes);
 app.use("/annotations", annotationRoutes);
 app.use("/detections", detectionsRoutes);
-app.use("/notifiactions", notificationRoutes);
+app.use("/notifications", notificationRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 

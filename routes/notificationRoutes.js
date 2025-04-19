@@ -67,7 +67,7 @@ router.get('/:userId', notificationController.getNotifications);
 
 /**
  * @swagger
- * /notifications/:{notificationId}/read:
+ * /notifications/{notificationId}/read:
  *   put:
  *     summary: mark notification as read
  *     tags: [Notifications]
