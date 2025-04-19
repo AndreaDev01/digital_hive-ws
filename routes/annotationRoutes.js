@@ -122,3 +122,5 @@ router.put('/:annotationId', annotationValidatorRules, validate, annotationContr
  *         description: Annotation not found
  */
 router.delete('/:annotationId', annotationController.deleteAnnotation);
+
+module.exports = router;
