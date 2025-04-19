@@ -13,14 +13,6 @@ exports.createDetection = async (req, res) => {
   try {
     const detection = new Detection(req.body);
     const savedDetection = await detection.save();
-
-    // aggiorna il campo hives dell'utente
-    await Hive.findByIdAndUpdate(
-      req.body.hive,
-      { $push: { hives: savedDetection._id } },
-      { new: true }
-    );
-
     res.status(201).json(savedDetection);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -31,7 +23,7 @@ exports.deleteDetection = async (req, res) => {
   try {
     const { detectionId } = req.params;
 
-    const deleted = await Detection.findByIdAndDelete(id);
+    const deleted = await Detection.findByIdAndDelete(detectionId);
 
     if (!deleted) {
       return res.status(404).json({ message: 'Detection not found' });

@@ -27,13 +27,6 @@ exports.createConfigParams = async (req, res) => {
     const config = new configParams(req.body);
     const savedConfig = await config.save();
 
-    // aggiorna il campo hives dell'utente
-    await User.findByIdAndUpdate(
-      req.body.userId,
-      { $push: { hives: savedConfig._id } },
-      { new: true }
-    );
-
     res.status(201).json(savedConfig);
   } catch (err) {
     res.status(500).json({ error: err.message });
