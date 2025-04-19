@@ -26,3 +26,20 @@ exports.createDetection = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.deleteDetection = async (req, res) => {
+  try {
+    const { detectionId } = req.params;
+
+    const deleted = await Detection.findByIdAndDelete(id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: 'Detection not found' });
+    }
+
+    res.status(200).json({ message: 'Detection deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting detection:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};

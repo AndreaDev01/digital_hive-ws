@@ -47,7 +47,7 @@ const detectionValidatorRules = require('../validators/detectionValidator');
  *         required: true
  *         schema:
  *           type: string
- *         description: ID of detection
+ *         description: ID of hive
  *     responses:
  *       200:
  *         description: OK
@@ -85,5 +85,27 @@ router.get('/:hiveId', detectionController.getDetections);
  *         description: Params not valid
  */
 router.post('/', detectionValidatorRules, validate, detectionController.createDetection);
+
+
+/**
+ * @swagger
+ * /detections/{detectionId}:
+ *   delete:
+ *     summary: Delete detection by id
+ *     tags: [Detections]
+ *     parameters:
+ *       - in: path
+ *         name: detectionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of detection
+ *     responses:
+ *       200:
+ *         description: Detection deleted successfully
+ *       404:
+ *         description: Detection not found
+ */
+router.delete('/:detectionId', detectionController.deleteDetection);
 
 module.exports = router;
