@@ -47,7 +47,7 @@ const validate = require('../middlewares/validate');
 
 /**
  * @swagger
- * /configparams/{userId}:
+ * /config_params/{userId}:
  *   get:
  *     summary: get ConfigParams from user id
  *     tags: [ConfigParams]
@@ -75,17 +75,10 @@ router.get('/:userId', ConfigParamsController.getConfigParams);
 
 /**
  * @swagger
- * /configparams:
+ * /config_params:
  *   post:
  *     summary: Create a new config for user
- *     tags: [ConfigParams]
- *     parameters:
- *       - in: path
- *         name: configID
- *         required: true
- *         schema:
- *           type: string
- *         description: ID della configurazione   
+ *     tags: [ConfigParams]  
  *     requestBody:
  *       required: true
  *       content:
@@ -102,10 +95,17 @@ router.post('/', configParamsValidationRules, validate, ConfigParamsController.c
 
 /**
  * @swagger
- * /configparams/{configParamId}:
+ * /config_params/{configParamId}:
  *   put:
  *     summary: Update config params
  *     tags: [ConfigParams]
+ *     parameters:
+ *       - in: path
+ *         name: configParamId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of config to update
  *     requestBody:
  *       required: true
  *       content:

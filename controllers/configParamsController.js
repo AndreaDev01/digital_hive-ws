@@ -5,7 +5,7 @@ const configParams = require('../models/ConfigParams');
 exports.getConfigParams = async (req, res) => {
         const { userId } = req.params;
       const hives = await configParams.find({
-        user: userId,
+        userId: userId,
       });
       res.json(hives);
 }
