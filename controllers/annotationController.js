@@ -40,7 +40,7 @@ exports.deleteAnnotation = async (req, res) => {
   try {
     const { annotationId } = req.params;
 
-    const deleted = await Detection.findByIdAndDelete(annotationId);
+    const deleted = await Annotation.findByIdAndDelete(annotationId);
 
     if (!deleted) {
       return res.status(404).json({ message: 'Annotation not found' });

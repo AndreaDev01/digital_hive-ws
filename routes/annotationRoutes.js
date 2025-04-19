@@ -84,6 +84,13 @@ router.post('/', annotationValidatorRules, validate, annotationController.create
  *   put:
  *     summary: Update annotation
  *     tags: [Annotations]
+ *     parameters:
+ *       - in: path
+ *         name: annotationId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of annotation to update
  *     requestBody:
  *       required: true
  *       content:
