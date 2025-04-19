@@ -71,7 +71,7 @@ router.get('/:userId', ConfigParamsController.getConfigParams);
  * /config:
  *   post:
  *     summary: Crea una configurazione utente
- *     tags: [Config]
+ *     tags: [ConfigParams]
  *     parameters:
  *       - in: path
  *         name: configID
@@ -98,7 +98,7 @@ router.post('/', configParamsValidationRules, validate, ConfigParamsController.c
  * /config:
  *   put:
  *     summary: Modifica una configurazione utente
- *     tags: [Config]
+ *     tags: [ConfigParams]
  *     requestBody:
  *       required: true
  *       content:
