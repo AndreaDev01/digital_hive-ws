@@ -68,7 +68,7 @@ router.get('/:userId', ConfigParamsController.getConfigParams);
 
 /**
  * @swagger
- * /config:
+ * /configparams:
  *   post:
  *     summary: Crea una configurazione utente
  *     tags: [ConfigParams]
@@ -95,7 +95,7 @@ router.post('/', configParamsValidationRules, validate, ConfigParamsController.c
 
 /**
  * @swagger
- * /config:
+ * /configparams/{configParamId}:
  *   put:
  *     summary: Modifica una configurazione utente
  *     tags: [ConfigParams]

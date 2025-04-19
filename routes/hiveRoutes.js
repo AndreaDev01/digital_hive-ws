@@ -12,8 +12,75 @@ const validate = require('../middlewares/validate');
 // La rotta POST '/' crea un nuovo hive.
 // Utilizziamo le regole di validazione e il middleware di validazione per garantire che i dati inviati siano validi.
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Hive:
+ *       type: object
+ *       required:
+ *         - name
+ *         - description
+ *         - user
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: name of hive
+ *         description:
+ *           type: string
+ *           description: Description of hive
+ *         user:
+ *           type: string
+ *           description: ID dell’utente
+ */
 
+/**
+ * @swagger
+ * /hives/{userId}:
+ *   get:
+ *     summary: get Hives from user id
+ *     tags: [Hives]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID dell'utente
+ *     responses:
+ *       200:
+ *         description: OK
+ *       404:
+ *         description: Config not found
+ */
 router.get('/:userId', HiveController.getHives);
+
+
+/**
+ * @swagger
+ * /hives:
+ *   post:
+ *     summary: Crea una nuova arnia
+ *     tags: [Hives]
+ *     parameters:
+ *       - in: path
+ *         name: HiveID
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID dell'arnia   
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Hive'
+ *     responses:
+ *       201:
+ *         description: Arnia creata con successo
+ *       400:
+ *         description: Parametri non validi
+ */
 router.post('/', hiveValidationRules, validate, HiveController.createHive);
 
 module.exports = router;
