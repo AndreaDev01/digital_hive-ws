@@ -3,6 +3,8 @@ const router = express.Router();
 const HiveController = require('../controllers/hiveController');
 const hiveValidationRules = require('../validators/hiveValidator');
 const validate = require('../middlewares/validate');
+const protect = require('../middlewares/protect');
+
 // In questo file, definiamo le rotte per il modello Hive.
 // Importiamo express e creiamo un router.
 // Importiamo il controller HiveController e le regole di validazione hiveValidationRules.
@@ -40,6 +42,8 @@ const validate = require('../middlewares/validate');
  *   get:
  *     summary: get Hives from user id
  *     tags: [Hives]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: path
  *         name: userId
@@ -53,7 +57,7 @@ const validate = require('../middlewares/validate');
  *       404:
  *         description: Hives not found
  */
-router.get('/:userId', HiveController.getHives);
+router.get('/:userId',protect, HiveController.getHives);
 
 
 /**
@@ -62,6 +66,8 @@ router.get('/:userId', HiveController.getHives);
  *   post:
  *     summary: Create new hive
  *     tags: [Hives]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     requestBody:
  *       required: true
  *       content:
@@ -74,6 +80,6 @@ router.get('/:userId', HiveController.getHives);
  *       400:
  *         description: Params not valid
  */
-router.post('/', hiveValidationRules, validate, HiveController.createHive);
+router.post('/', protect, hiveValidationRules, validate, HiveController.createHive);
 
 module.exports = router;

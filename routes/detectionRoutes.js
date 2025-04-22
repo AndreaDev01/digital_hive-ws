@@ -3,6 +3,7 @@ const router = express.Router();
 const detectionController = require('../controllers/detectionController');
 const validate = require('../middlewares/validate');
 const detectionValidatorRules = require('../validators/detectionValidator');
+const protect = require('../middlewares/protect');
 
 /**
  * @swagger
@@ -41,6 +42,8 @@ const detectionValidatorRules = require('../validators/detectionValidator');
  *   get:
  *     summary: Get detections from hive id
  *     tags: [Detections]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: path
  *         name: hiveId
@@ -63,7 +66,7 @@ const detectionValidatorRules = require('../validators/detectionValidator');
  *       404:
  *         description: Detection not found
  */
-router.get('/:hiveId', detectionController.getDetections);
+router.get('/:hiveId',protect, detectionController.getDetections);
 
 
 /**
@@ -72,6 +75,8 @@ router.get('/:hiveId', detectionController.getDetections);
  *   post:
  *     summary: Create new detection
  *     tags: [Detections]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     requestBody:
  *       required: true
  *       content:
@@ -84,7 +89,7 @@ router.get('/:hiveId', detectionController.getDetections);
  *       500:
  *         description: Params not valid
  */
-router.post('/', detectionValidatorRules, validate, detectionController.createDetection);
+router.post('/', protect, detectionValidatorRules, validate, detectionController.createDetection);
 
 
 /**
@@ -93,6 +98,8 @@ router.post('/', detectionValidatorRules, validate, detectionController.createDe
  *   delete:
  *     summary: Delete detection by id
  *     tags: [Detections]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: path
  *         name: detectionId
@@ -106,6 +113,6 @@ router.post('/', detectionValidatorRules, validate, detectionController.createDe
  *       404:
  *         description: Detection not found
  */
-router.delete('/:detectionId', detectionController.deleteDetection);
+router.delete('/:detectionId',protect, detectionController.deleteDetection);
 
 module.exports = router;

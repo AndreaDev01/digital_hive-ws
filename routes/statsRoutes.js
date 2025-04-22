@@ -1,6 +1,8 @@
 const statsController = require('../controllers/statsController');
 const express = require('express');
 const router = express.Router();
+const protect = require('../middlewares/protect');
+
 
 /**
  * @swagger
@@ -9,6 +11,8 @@ const router = express.Router();
  *     summary: Retrieve all detections for a specific hive on a given day
  *     tags:
  *       - Stats
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: query
  *         name: date
@@ -38,7 +42,7 @@ const router = express.Router();
  *         description: Server error
  */
 
-router.get('/daily', statsController.getDailyDetections);
+router.get('/daily',protect, statsController.getDailyDetections);
 
 
 /**
@@ -48,6 +52,8 @@ router.get('/daily', statsController.getDailyDetections);
  *     summary: Get daily average values for temperature, humidity, and weight for the current week or a specified week
  *     tags:
  *       - Stats
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: query
  *         name: date
@@ -92,7 +98,7 @@ router.get('/daily', statsController.getDailyDetections);
  *       500:
  *         description: Server error
  */
-router.get('/weekly', statsController.getWeeklyAverages);
+router.get('/weekly',protect, statsController.getWeeklyAverages);
 
 /**
  * @swagger
@@ -102,6 +108,8 @@ router.get('/weekly', statsController.getWeeklyAverages);
  *     description: Returns the weekly average values of temperature, humidity, and weight for the specified month.
  *     tags:
  *       - Stats
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: query
  *         name: hiveId
@@ -145,7 +153,7 @@ router.get('/weekly', statsController.getWeeklyAverages);
  *         description: Server error
  */
 
-router.get('/monthly/week', statsController.getMonthlyWeeklyAverages);
+router.get('/monthly/week',protect, statsController.getMonthlyWeeklyAverages);
 
 
 /**
@@ -156,6 +164,8 @@ router.get('/monthly/week', statsController.getMonthlyWeeklyAverages);
  *     description: Returns the daily average values of temperature, humidity, and weight for each day of the specified month. Defaults to current month if not provided.
  *     tags:
  *       - Stats
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: query
  *         name: hiveId
@@ -200,7 +210,7 @@ router.get('/monthly/week', statsController.getMonthlyWeeklyAverages);
  *       500:
  *         description: Server error
  */
-router.get('/monthly/day', statsController.getDailyAverages);
+router.get('/monthly/day',protect, statsController.getDailyAverages);
 
 /**
  * @swagger
@@ -210,6 +220,8 @@ router.get('/monthly/day', statsController.getDailyAverages);
  *     description: Returns the monthly average values of temperature, humidity, and weight for each month of the specified year. Defaults to current year if not provided.
  *     tags:
  *       - Stats
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: query
  *         name: hiveId
@@ -252,6 +264,6 @@ router.get('/monthly/day', statsController.getDailyAverages);
  *       500:
  *         description: Server error
  */
-router.get('/yearly/month', statsController.getMonthlyAverages);
+router.get('/yearly/month',protect, statsController.getMonthlyAverages);
 
 module.exports = router;

@@ -3,7 +3,7 @@ const router = express.Router();
 const ConfigParamsController = require('../controllers/configParamsController');
 const configParamsValidationRules = require('../validators/configParamsValidator');
 const validate = require('../middlewares/validate');
-
+const protect = require('../middlewares/protect');
 /**
  * @swagger
  * components:
@@ -51,6 +51,8 @@ const validate = require('../middlewares/validate');
  *   get:
  *     summary: get ConfigParams from user id
  *     tags: [ConfigParams]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: path
  *         name: userId
@@ -71,7 +73,7 @@ const validate = require('../middlewares/validate');
  *       404:
  *         description: Config not found
  */
-router.get('/:userId', ConfigParamsController.getConfigParams);
+router.get('/:userId',protect, ConfigParamsController.getConfigParams);
 
 /**
  * @swagger
@@ -79,6 +81,8 @@ router.get('/:userId', ConfigParamsController.getConfigParams);
  *   post:
  *     summary: Create a new config for user
  *     tags: [ConfigParams]  
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     requestBody:
  *       required: true
  *       content:
@@ -91,7 +95,7 @@ router.get('/:userId', ConfigParamsController.getConfigParams);
  *       400:
  *         description: Params not valid
  */
-router.post('/', configParamsValidationRules, validate, ConfigParamsController.createConfigParams);
+router.post('/', protect, configParamsValidationRules, validate, ConfigParamsController.createConfigParams);
 
 /**
  * @swagger
@@ -99,6 +103,8 @@ router.post('/', configParamsValidationRules, validate, ConfigParamsController.c
  *   put:
  *     summary: Update config params
  *     tags: [ConfigParams]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: path
  *         name: configParamId
@@ -118,7 +124,7 @@ router.post('/', configParamsValidationRules, validate, ConfigParamsController.c
  *       400:
  *         description: Paframs not valid
  */
-router.put('/:configParamId', configParamsValidationRules, validate, ConfigParamsController.updateConfigParams);
+router.put('/:configParamId',protect,  configParamsValidationRules, validate, ConfigParamsController.updateConfigParams);
 
 
 module.exports = router;

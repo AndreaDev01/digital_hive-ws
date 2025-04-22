@@ -1,4 +1,4 @@
-
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
@@ -18,6 +18,15 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
+    //Genera il token JWT con scadenza di 30 minuti
+    const payload = {
+      userId: user._id,
+      username: user.username
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30m' });
+
+
     // Success
     res.status(200).json({
       message: 'Login successful',
@@ -25,6 +34,7 @@ exports.login = async (req, res) => {
         id: user._id,
         email: user.email,
         name: user.name,
+        token: token
       },
     });
   } catch (err) {

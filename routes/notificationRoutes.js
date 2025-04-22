@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const notificationController = require('../controllers/notificationController');
+const protect = require('../middlewares/protect');
 
 
 /**
@@ -40,6 +41,8 @@ const notificationController = require('../controllers/notificationController');
  *   get:
  *     summary: Get notifications from user id
  *     tags: [Notifications]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: path
  *         name: userId
@@ -62,7 +65,7 @@ const notificationController = require('../controllers/notificationController');
  *       404:
  *         description: Notification not found
  */
-router.get('/:userId', notificationController.getNotifications);
+router.get('/:userId',protect, notificationController.getNotifications);
 
 
 /**
@@ -71,6 +74,8 @@ router.get('/:userId', notificationController.getNotifications);
  *   put:
  *     summary: mark notification as read
  *     tags: [Notifications]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: path
  *         name: notificationId
@@ -84,7 +89,7 @@ router.get('/:userId', notificationController.getNotifications);
  *       500:
  *         description: Notification not valid
  */
-router.put('/:notificationId/read', notificationController.markAsRead);
+router.put('/:notificationId/read',protect, notificationController.markAsRead);
 
 
 
@@ -94,6 +99,8 @@ router.put('/:notificationId/read', notificationController.markAsRead);
  *   delete:
  *     summary: Delete notification by id
  *     tags: [Notifications]
+ *     security:
+ *       - BearerAuth: []  # Richiede il token per questa chiamata
  *     parameters:
  *       - in: path
  *         name: notificationId
@@ -107,5 +114,5 @@ router.put('/:notificationId/read', notificationController.markAsRead);
  *       404:
  *         description: Notification not found
  */
-router.delete('/:notificationId', notificationController.deleteNotification);
+router.delete('/:notificationId',protect,  notificationController.deleteNotification);
 module.exports = router;
