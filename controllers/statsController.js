@@ -80,3 +80,54 @@ exports.getWeeklyAverages = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   };
+
+  exports.getMonthlyWeeklyAverages = async (req, res) => {
+    try {
+      const { month, hiveId } = req.query;
+  
+      // 1. Controlla hiveId obbligatorio
+      if (!hiveId) {
+        return res.status(400).json({ message: 'hiveId is required' });
+      }
+  
+      // 2. Data base: primo giorno del mese fornito o mese corrente
+      const baseDate = month ? new Date(`${month}-01`) : new Date();
+      const year = baseDate.getFullYear();
+      const monthIndex = baseDate.getMonth();
+  
+      // 3. Inizio mese
+      const startOfMonth = new Date(year, monthIndex, 1);
+      startOfMonth.setHours(0, 0, 0, 0);
+  
+      // 4. Fine mese
+      const endOfMonth = new Date(year, monthIndex + 1, 0); // ultimo giorno del mese
+      endOfMonth.setHours(23, 59, 59, 999);
+  
+      // 5. Aggregazione settimanale
+      const weeklyAverages = await Detection.aggregate([
+        {
+          $match: {
+            hive: new mongoose.Types.ObjectId(hiveId),
+            date: { $gte: startOfMonth, $lte: endOfMonth }
+          }
+        },
+        {
+          $group: {
+            _id: {
+              year: { $year: "$date" },
+              week: { $isoWeek: "$date" }
+            },
+            avgTemperature: { $avg: "$temperature" },
+            avgHumidity: { $avg: "$humidity" },
+            avgWeight: { $avg: "$weight" }
+          }
+        },
+        { $sort: { "_id.year": 1, "_id.week": 1 } }
+      ]);
+  
+      res.json(weeklyAverages);
+    } catch (err) {
+      console.error('Error calculating monthly weekly averages:', err);
+      res.status(500).json({ message: 'Server error' });
+    }
+  };

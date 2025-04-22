@@ -94,4 +94,57 @@ router.get('/daily', statsController.getDailyDetections);
  */
 router.get('/weekly', statsController.getWeeklyAverages);
 
+/**
+ * @swagger
+ * /stats/monthly/week:
+ *   get:
+ *     summary: Get weekly averages for a given month
+ *     description: Returns the weekly average values of temperature, humidity, and weight for the specified month.
+ *     tags:
+ *       - Stats
+ *     parameters:
+ *       - in: query
+ *         name: hiveId
+ *         required: true
+ *         description: ID of the hive to filter data
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: month
+ *         required: false
+ *         description: Month in the format YYYY-MM. Defaults to current month if not provided.
+ *         schema:
+ *           type: string
+ *           example: "2025-04"
+ *     responses:
+ *       200:
+ *         description: Weekly averages of temperature, humidity, and weight for the specified month
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: object
+ *                     properties:
+ *                       year:
+ *                         type: integer
+ *                       week:
+ *                         type: integer
+ *                   avgTemperature:
+ *                     type: number
+ *                   avgHumidity:
+ *                     type: number
+ *                   avgWeight:
+ *                     type: number
+ *       400:
+ *         description: Bad request, hiveId is missing or incorrect
+ *       500:
+ *         description: Server error
+ */
+
+router.get('/monthly/week', statsController.getMonthlyWeeklyAverages);
+
 module.exports = router;
