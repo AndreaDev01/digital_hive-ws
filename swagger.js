@@ -14,7 +14,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000', // cambia se in produzione
+        url: 'https://digitalhive-ws.andreasalvatoredeveloper.it', // cambia se in produzione
       },
     ],
   },
