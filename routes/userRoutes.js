@@ -18,7 +18,7 @@ const validate = require('../middlewares/validate');
  *         name:
  *           type: string
  *           description: name of user
- *         temp_max:
+ *         email:
  *           type: email
  *           description: email of user
  *         expired:
